@@ -87,4 +87,22 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="stats">Stats</string>
+    <string name="stats_fragment">Stats Fragment</string>
+    <string name="decks">decks</string>
+    <string name="themes">Themes</string>
+    <string name="communicate">Communicate</string>
+    <string name="decks_nav_drawer">Decks</string>
+    <string name="send">Send</string>
+    <string name="share">Share</string>
+    <string name="stats_nav_drawer">Stats</string>
+    <string name="tools">Tools</string>
+    <string name="authors">Authors:</string>
+    <string name="theme_fragment">Theme Fragment</string>
+    <string name="tools_fragment">Tools Fragment</string>
+    <string name="back">Back</string>
+    <string name="front">Front</string>
+    <string name="create">Create</string>
+    <string name="choose_a_deck">Choose a deck</string>
+    <string name="create_new_deck">Create new deck</string>
 </resources>

@@ -1,20 +1,21 @@
 package com.example.android.workingtitle;
 
-import android.content.Context;
-import android.net.Uri;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.android.workingtitle.R;
 
 /**
- *
+ * A simple {@link Fragment} subclass.
  */
-public class DeckFragment extends Fragment {
+public class ThemeFragment extends Fragment {
 
-    public DeckFragment() {
+
+    public ThemeFragment() {
         // Required empty public constructor
     }
 
@@ -23,6 +24,7 @@ public class DeckFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_deck, container, false);
+        return inflater.inflate(R.layout.fragment_theme, container, false);
     }
+
 }

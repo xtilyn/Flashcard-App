@@ -81,25 +81,34 @@ public class DashboardActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_deck) {
+            DeckFragment deckFragment = new DeckFragment();
+            FragmentManager manager = getSupportFragmentManager();
+            manager.beginTransaction().replace(R.id.layout_for_fragment,
+                    deckFragment,
+                    deckFragment.getTag()
+            ).commit();
+        } else if (id == R.id.nav_stat) {
             StatsFragment statsFragment = new StatsFragment();
             FragmentManager manager = getSupportFragmentManager();
             manager.beginTransaction().replace(R.id.layout_for_fragment,
                     statsFragment,
                     statsFragment.getTag()
             ).commit();
-        } else if (id == R.id.nav_slideshow) {
-            DeckFragment deckFragment = new DeckFragment();
+        } else if (id == R.id.nav_theme) {
+            ThemeFragment themeFragment = new ThemeFragment();
             FragmentManager manager = getSupportFragmentManager();
             manager.beginTransaction().replace(R.id.layout_for_fragment,
-                    deckFragment,
-                    deckFragment.getTag() //TODO
+                    themeFragment,
+                    themeFragment.getTag()
             ).commit();
-
         } else if (id == R.id.nav_manage) {
-
+            ToolsFragment toolsFragment = new ToolsFragment();
+            FragmentManager manager = getSupportFragmentManager();
+            manager.beginTransaction().replace(R.id.layout_for_fragment,
+                    toolsFragment,
+                    toolsFragment.getTag()
+            ).commit();
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {

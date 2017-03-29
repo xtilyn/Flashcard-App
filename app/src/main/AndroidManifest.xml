@@ -33,9 +33,9 @@
             android:label="@string/title_activity_settings" />
         <activity
             android:name=".CreateFlashcardActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity android:name=".AboutActivity"/>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".AboutActivity" />
+        <activity android:name=".ChooseDeckActivity"></activity>
     </application>
 
 </manifest>
