@@ -105,4 +105,6 @@
     <string name="create">Create</string>
     <string name="choose_a_deck">Choose a deck</string>
     <string name="create_new_deck">Create new deck</string>
+    <string name="working_title">Working Title</string>
+    <string name="smartify_yo_learning">Smartify yo learning</string>
 </resources>

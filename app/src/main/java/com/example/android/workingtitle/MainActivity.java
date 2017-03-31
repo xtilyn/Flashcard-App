@@ -23,10 +23,17 @@ import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static DBManager dbManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        dbManager = new DBManager(this);
+    }
+
+    public static DBManager getDbManager() {
+        return dbManager;
     }
 
     public void onDashBoardButtonClicked(View view) {

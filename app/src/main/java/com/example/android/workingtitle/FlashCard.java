@@ -21,10 +21,12 @@ public class FlashCard {
     public static final int EASY = 3;
     public static final int MEDIUM = 2;
     public static final int HARD = 1;
+    public static final int UNRATED = -1;
 
     private String front;
     private String back;
     private int rating;
+    private String deck;
 
     FlashCard(String f, String b) {
         setFront(f);
