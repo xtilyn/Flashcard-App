@@ -16,10 +16,6 @@
  */
 package com.example.android.workingtitle;
 
-/**
- * Created by chris on 2017-03-28.
- */
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
