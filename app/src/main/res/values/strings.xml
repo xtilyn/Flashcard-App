@@ -107,4 +107,11 @@
     <string name="create_new_deck">Create new deck</string>
     <string name="working_title">Working Title</string>
     <string name="smartify_yo_learning">Smartify yo learning</string>
+    <string name="view_all_data">View all data</string>
+    <string name="title">Title</string>
+    <string name="createDeck">Create</string>
+    <string name="create_a_new_deck">Create a new deck</string>
+    <string name="create_deck">Create</string>
+    <string name="create_a_new_decka">Create a new deck</string>
+    <string name="titlea">Title</string>
 </resources>

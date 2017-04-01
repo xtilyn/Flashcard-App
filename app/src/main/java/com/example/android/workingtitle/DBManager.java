@@ -46,10 +46,43 @@ public class DBManager extends SQLiteOpenHelper{
         return result != -1;
     }
 
-    public Cursor getAllData() {
+    Cursor getAllData() {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select * from " + TABLE_NAME, null);
-        return res;
+        return db.rawQuery("select * from " + TABLE_NAME, null);
+    }
+
+    void removeAllData() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME, null, null);
+        db.close();
+    }
+
+    Integer deleteData(String id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(TABLE_NAME, "ID = ?", new String[] {id});
+    }
+    /*
+    onClick:
+    Integer deletedRows = MainActivity.getDBManager.deleteData(id, front, back, rating, deck);
+    if (deletedRows > 0) data deleted
+    else data not deleted
+     */
+
+    boolean updateData(String id, String front, String back, String rating, String deck) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_1, id);
+        contentValues.put(COL_2, front);
+        contentValues.put(COL_3, back);
+        contentValues.put(COL_4, rating);
+        contentValues.put(COL_5, deck);
+        db.update(TABLE_NAME, contentValues, "ID = ?", new String[] {id});
+        return true;
+    }
+
+    // TODO to be invoked in application onStop
+    public void updateDatabase() {
+        // save new/modified data(s) to db
     }
 
 }

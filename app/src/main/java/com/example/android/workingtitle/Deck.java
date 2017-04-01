@@ -39,6 +39,10 @@ public class Deck {
         numberOfDecks++;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
     public static int getNumberOfDecks() {
         return numberOfDecks;
     }

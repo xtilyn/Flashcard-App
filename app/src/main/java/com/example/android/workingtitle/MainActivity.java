@@ -19,17 +19,44 @@ package com.example.android.workingtitle;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    private final ArrayList<Deck> decks;
+    private final ArrayList<FlashCard> flashCards;
+
     private static DBManager dbManager;
+
+
+    MainActivity() {
+        decks = new ArrayList<>(); // TODO get decks from a text file
+        flashCards = new ArrayList<>(); // TODO get cards from the database
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        new MainActivity();
         dbManager = new DBManager(this);
+    }
+
+    @Override
+    protected void onStop() {
+        // TODO save new/modified data(s) to db
+        super.onStop();
+    }
+
+    public ArrayList<Deck> getDecks() {
+        return new ArrayList<>(decks);
+    }
+
+    public ArrayList<FlashCard> getFlashCards() {
+        return new ArrayList<>(flashCards);
     }
 
     public static DBManager getDbManager() {
@@ -37,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onDashBoardButtonClicked(View view) {
-        Intent intent = new Intent("com.example.android.workingtitle.DashboardActivity");
+        Intent intent = new Intent(this, DashboardActivity.class);
         startActivity(intent);
     }
 

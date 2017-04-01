@@ -25,44 +25,59 @@ public class FlashCard {
 
     private String front;
     private String back;
-    private int rating;
+    private int id;
     private String deck;
+    private int rating;
 
-    FlashCard(String f, String b) {
+    FlashCard(String f, String b, int i, int r, String d) {
         setFront(f);
         setBack(b);
-        setRating(0);
+        setID(i);
+        setRating(r);
+        setDeck(d);
     }
 
-    public void setRating(int rate) {
-        rating = rate;
-    }
-
-    public void setFront(String f) {
+    void setFront(String f) {
         front = f;
     }
 
-    public void setBack(String b) {
+    void setBack(String b) {
         back = b;
     }
 
-    public int getRating() {
+    void setID(int ID) {
+        id = ID;
+    }
+
+    void setRating(int rate) {
+        rating = rate;
+    }
+
+    void setDeck(String d) {
+        deck = d;
+    }
+
+    int getRating() {
         return rating;
     }
 
-    public void addToDeck(FlashCard card, Deck toDeck) {
-        // TODO
-    }
-
-    public String getFront() {
+    String getFront() {
         return front;
     }
 
-    public String getBack() {
+    String getBack() {
         return back;
     }
 
-    public boolean equals(FlashCard otherCard) {
+    String getDeck() {
+        return deck;
+    }
+
+    int getID() {
+        return id;
+    }
+
+    boolean equals(FlashCard otherCard) {
         final String otherCardFront = otherCard.getFront();
         final String otherCardBack = otherCard.getBack();
         return otherCardFront.equals(front) &&
@@ -73,6 +88,5 @@ public class FlashCard {
     public String toString() {
         return front;
     }
-
 
 }

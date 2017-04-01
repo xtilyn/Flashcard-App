@@ -1,5 +1,6 @@
 package com.example.android.workingtitle;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -82,41 +83,62 @@ public class DashboardActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_deck) {
-            DeckFragment deckFragment = new DeckFragment();
-            FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(R.id.layout_for_fragment,
-                    deckFragment,
-                    deckFragment.getTag()
-            ).commit();
+            showDecks();
         } else if (id == R.id.nav_stat) {
-            StatsFragment statsFragment = new StatsFragment();
-            FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(R.id.layout_for_fragment,
-                    statsFragment,
-                    statsFragment.getTag()
-            ).commit();
+            showStats();
         } else if (id == R.id.nav_theme) {
-            ThemeFragment themeFragment = new ThemeFragment();
-            FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(R.id.layout_for_fragment,
-                    themeFragment,
-                    themeFragment.getTag()
-            ).commit();
+            showThemes();
         } else if (id == R.id.nav_manage) {
-            ToolsFragment toolsFragment = new ToolsFragment();
-            FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(R.id.layout_for_fragment,
-                    toolsFragment,
-                    toolsFragment.getTag()
-            ).commit();
+            showTools();
         } else if (id == R.id.nav_share) {
-
+            // future feature
         } else if (id == R.id.nav_send) {
-
+            // future feature
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void showTools() {
+        ToolsFragment toolsFragment = new ToolsFragment();
+        FragmentManager manager = getSupportFragmentManager();
+        manager.beginTransaction().replace(R.id.layout_for_fragment,
+                toolsFragment,
+                toolsFragment.getTag()
+        ).commit();
+    }
+
+    private void showDecks() {
+        DeckFragment deckFragment = new DeckFragment();
+        FragmentManager manager = getSupportFragmentManager();
+        manager.beginTransaction().replace(R.id.layout_for_fragment,
+                deckFragment,
+                deckFragment.getTag()
+        ).commit();
+    }
+
+    private void showStats() {
+        StatsFragment statsFragment = new StatsFragment();
+        FragmentManager manager = getSupportFragmentManager();
+        manager.beginTransaction().replace(R.id.layout_for_fragment,
+                statsFragment,
+                statsFragment.getTag()
+        ).commit();
+    }
+
+    private void showThemes() {
+        ThemeFragment themeFragment = new ThemeFragment();
+        FragmentManager manager = getSupportFragmentManager();
+        manager.beginTransaction().replace(R.id.layout_for_fragment,
+                themeFragment,
+                themeFragment.getTag()
+        ).commit();
+    }
+
+    public void goToSettings(MenuItem item) {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
     }
 }
