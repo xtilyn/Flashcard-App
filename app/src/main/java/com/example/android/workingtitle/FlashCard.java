@@ -16,6 +16,9 @@
  */
 package com.example.android.workingtitle;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class FlashCard {
 
     public static final int EASY = 3;
@@ -23,18 +26,36 @@ public class FlashCard {
     public static final int HARD = 1;
     public static final int UNRATED = -1;
 
+    private static List<FlashCard> totalFlashcards = new ArrayList<>();
+
     private String front;
     private String back;
     private int id;
-    private String deck;
+    private Deck deck;
     private int rating;
 
-    FlashCard(String f, String b, int i, int r, String d) {
+    FlashCard(int i, String f, String b, int r, Deck d) {
+        setID(i);
         setFront(f);
         setBack(b);
-        setID(i);
         setRating(r);
         setDeck(d);
+    }
+
+    static void setTotalFlashcards(List<FlashCard> f) {
+        totalFlashcards = f;
+    }
+
+    static List<FlashCard> getTotalFlashcards() {
+        return new ArrayList<>(totalFlashcards);
+    }
+
+    static void addFlashcardToList(FlashCard f) {
+        totalFlashcards.add(f);
+    }
+
+    static int getNumberOfFlashcards() {
+        return totalFlashcards.size();
     }
 
     void setFront(String f) {
@@ -53,7 +74,7 @@ public class FlashCard {
         rating = rate;
     }
 
-    void setDeck(String d) {
+    void setDeck(Deck d) {
         deck = d;
     }
 
@@ -69,7 +90,7 @@ public class FlashCard {
         return back;
     }
 
-    String getDeck() {
+    Deck getDeck() {
         return deck;
     }
 

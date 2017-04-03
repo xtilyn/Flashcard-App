@@ -114,4 +114,11 @@
     <string name="create_deck">Create</string>
     <string name="create_a_new_decka">Create a new deck</string>
     <string name="titlea">Title</string>
+    <string name="delete_data">Delete Data</string>
+    <string name="home">Home</string>
+    <string name="about_item">About</string>
+    <string name="main_menu">Main menu</string>
+    <string name="search">Search</string>
+    <string name="textview">TextView</string>
+    <string name="numcards">TextView</string>
 </resources>

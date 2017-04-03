@@ -8,27 +8,47 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 public class ChooseDeckActivity extends AppCompatActivity {
 
+    private ArrayList<String> deckStringList;
     private String associatedDeck;
+    ArrayAdapter adapter;
+    private FlashCard newCard;
+    private Deck newDeck;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_deck);
+        deckStringList = new ArrayList<>();
         displayAvailableDecks();
     }
 
     private void displayAvailableDecks() {
-        // TODO loop through?
-//        Button deckButton = new Button(this);
-
+        for (int i = 0; i < Deck.getNumberOfDecks(); i++) {
+            deckStringList.add(Deck.getTotalDecks().get(i).getTitle());
+        }
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, deckStringList);
+        ListView listView = (ListView) findViewById(R.id.listview_for_decks);
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(
+                new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        String selectedDeck = String.valueOf(parent.getItemAtPosition(position));
+                        onSpecificDeckSelected(selectedDeck);
+                    }
+                }
+        );
     }
 
-    // TODO
     private void getDecksFromDb() {
         Cursor res = MainActivity.getDbManager().getAllData();
         if (res.getCount() == 0) {
@@ -68,27 +88,49 @@ public class ChooseDeckActivity extends AppCompatActivity {
     }
 
     public void onCreateDeckBtnClick(View view) {
+        String front = getIntent().getExtras().getString("frontContent");
+        String back = getIntent().getExtras().getString("backContent");
         EditText titleEditText = (EditText) findViewById(R.id.deck_title);
         associatedDeck = titleEditText.getText().toString();
-        insertToDatabase();
-        getDecksFromDb();
-//        goToDashBoard();
+
+        updateData(front, back, -1, associatedDeck);
+        goToDashBoard();
+    }
+
+    private void updateData(String front, String back, int rating, String deck) {
+        MainActivity.getDbManager().insertData(front, back, rating, deck);
+        newDeck = new Deck(associatedDeck);
+        newCard = new FlashCard(
+                MainActivity.getDbManager().getIDByContents(front, back, String.valueOf(-1), associatedDeck),
+                front, back, -1, newDeck
+        );
+        Deck.addDeckToList(newDeck);
+        FlashCard.addFlashcardToList(newCard);
+        deckStringList.add(associatedDeck);
+        adapter.notifyDataSetChanged();
     }
 
     private void goToDashBoard() {
         Intent intent = new Intent(this, DashboardActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                Intent.FLAG_ACTIVITY_TASK_ON_HOME);
         startActivity(intent);
     }
 
-    public void onSpecificDeckSelected(View view) {
-        // TODO textFile to store number of decks and their names
-    }
-
-    private void insertToDatabase() {
+    // TODO duplicate
+    private void onSpecificDeckSelected(String chosenDeck) {
         String front = getIntent().getExtras().getString("frontContent");
         String back = getIntent().getExtras().getString("backContent");
-
-        MainActivity.getDbManager().insertData(front, back, -1, associatedDeck);
+        Deck deck = Deck.findDeckByTitle(chosenDeck);
+        newCard = new FlashCard(
+                MainActivity.getDbManager().getIDByContents(front, back, String.valueOf(-1), associatedDeck),
+                front, back, -1, newDeck
+        );
+        FlashCard.addFlashcardToList(newCard);
+        if (deck != null)
+            deck.addNewCard(newCard);
     }
+
+    // TODO if the calling activity was chooseDeckActivity, make toast "new flashcard added"
 
 }

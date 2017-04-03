@@ -14,9 +14,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 public class DashboardActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private ArrayList<String> deckStringList;
+    private ArrayAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +36,7 @@ public class DashboardActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "create a new card? deck?", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -42,6 +49,8 @@ public class DashboardActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        deckStringList = new ArrayList<>();
     }
 
     @Override
@@ -54,7 +63,7 @@ public class DashboardActivity extends AppCompatActivity
         }
     }
 
-    @Override
+    @Override // TODO
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.dashboard, menu);
@@ -111,6 +120,14 @@ public class DashboardActivity extends AppCompatActivity
     }
 
     private void showDecks() {
+//        // listview_for_deck_in_dashboard
+//        for (int i = 0; i < Deck.getNumberOfDecks(); i++) {
+//            deckStringList.add(Deck.getTotalDecks().get(i).getTitle());
+//        }
+//        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, deckStringList);
+//        ListView listView = (ListView) findViewById(R.id.listview_for_deck_in_dashboard);
+//        listView.setAdapter(adapter);
+
         DeckFragment deckFragment = new DeckFragment();
         FragmentManager manager = getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.layout_for_fragment,
@@ -139,6 +156,16 @@ public class DashboardActivity extends AppCompatActivity
 
     public void goToSettings(MenuItem item) {
         Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
+    }
+
+    public void goToMain(MenuItem item) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void goToAbout(MenuItem item) {
+        Intent intent = new Intent(this, AboutActivity.class);
         startActivity(intent);
     }
 }

@@ -17,12 +17,11 @@
 package com.example.android.workingtitle;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Deck {
 
-    // TODO maximum deck size?
-
-    private static int numberOfDecks;
+    private static List<Deck> totalDecks = new ArrayList<>();
 
     private String title;
     private ArrayList<FlashCard> deckContents;
@@ -36,7 +35,27 @@ public class Deck {
         this.title = title.isEmpty() ? "Untitled" : title;
         deckContents = new ArrayList<>();
         cardsByLevel = new ArrayList<>();
-        numberOfDecks++;
+    }
+
+    static void setTotalDecks(List<Deck> d) {
+        totalDecks = d;
+    }
+
+    static void addDeckToList(Deck d) {
+        totalDecks.add(d);
+    }
+
+    static List<Deck> getTotalDecks() {
+        return new ArrayList<>(totalDecks);
+    }
+
+    static Deck findDeckByTitle(String t) {
+        for (Deck d : totalDecks) {
+            if (d.getTitle().equals(t)) {
+                return d;
+            }
+        }
+        return null;
     }
 
     public String getTitle() {
@@ -44,12 +63,11 @@ public class Deck {
     }
 
     public static int getNumberOfDecks() {
-        return numberOfDecks;
+        return totalDecks.size();
     }
 
-    public void addNewCard(FlashCard card) {
-        if (!(this.deckContents.size() <= 100))
-            deckContents.add(card);
+    void addNewCard(FlashCard card) {
+        deckContents.add(card);
     }
 
     public void removeCard(FlashCard card) {

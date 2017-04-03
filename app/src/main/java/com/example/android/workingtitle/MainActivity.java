@@ -17,46 +17,80 @@
 package com.example.android.workingtitle;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final ArrayList<Deck> decks;
-    private final ArrayList<FlashCard> flashCards;
-
     private static DBManager dbManager;
-
-
-    MainActivity() {
-        decks = new ArrayList<>(); // TODO get decks from a text file
-        flashCards = new ArrayList<>(); // TODO get cards from the database
-    }
+    private Cursor dbContents;
+    private List<Deck> decks;
+    private List<FlashCard> flashCards;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        new MainActivity();
         dbManager = new DBManager(this);
+        dbContents = dbManager.getAllData();
+        decks = new ArrayList<>();
+        flashCards = new ArrayList<>();
+        initDecks();
+        initFlashCards();
     }
 
-    @Override
-    protected void onStop() {
-        // TODO save new/modified data(s) to db
-        super.onStop();
+    public void onDeleteDataClick(View view) {
+        dbManager.removeAllData();
     }
 
-    public ArrayList<Deck> getDecks() {
-        return new ArrayList<>(decks);
+    private void initFlashCards() {
+        while (dbContents.moveToNext()) {
+            flashCards.add(new FlashCard(
+                    Integer.parseInt(dbContents.getString(0)),
+                    dbContents.getString(1),
+                    dbContents.getString(2),
+                    Integer.parseInt(dbContents.getString(3)),
+                    findDeckByTitle(dbContents.getString(4))));
+        }
+        FlashCard.setTotalFlashcards(flashCards);
     }
 
-    public ArrayList<FlashCard> getFlashCards() {
-        return new ArrayList<>(flashCards);
+    private void initDecks() {
+        Set<String> hs = new HashSet<>();
+        List<String> temp2 = new ArrayList<>();
+        while (dbContents.moveToNext()) {
+            temp2.add(dbContents.getString(4));
+        }
+        hs.addAll(temp2);
+        temp2.clear();
+        temp2.addAll(hs);
+        for (String deckTitle : temp2) {
+            decks.add(new Deck(deckTitle));
+        }
+        Deck.setTotalDecks(decks);
+        configureDeckContents();
+    }
+
+    private void configureDeckContents() {
+        for (FlashCard f : flashCards) {
+            f.getDeck().addNewCard(f);
+        }
+    }
+
+    private Deck findDeckByTitle(String title) {
+        for (Deck deck : decks) {
+            if (deck.getTitle().equals(title)) {
+                return deck;
+            }
+        }
+        return null;
     }
 
     public static DBManager getDbManager() {
@@ -85,9 +119,9 @@ public class MainActivity extends AppCompatActivity {
 
     /*
     NOTE GUI:
-    a. Built-in cliparts/images to be added in a card
-    b.
-    c. Nav drawer activity: "start session" floating btn
+    a. Built-in cliparts to be added in a card
+    b. Icons for decks
+    c. Nav drawer activity: "start session" in the main content
     d. Add SessionActivity.java
     e. After selecting a new session, give user option which deck, and
         choices to choose from number of cards to include (add opt to select all
@@ -97,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
         and transfer card (Deck)
     f. updateDeck() in GUI (such that right cards are displayed after
         modifications/changed ratings/etc):
+    g. Feature to google search image via webview
     */
 
 }

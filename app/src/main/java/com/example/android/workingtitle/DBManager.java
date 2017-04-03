@@ -63,7 +63,7 @@ public class DBManager extends SQLiteOpenHelper{
     }
     /*
     onClick:
-    Integer deletedRows = MainActivity.getDBManager.deleteData(id, front, back, rating, deck);
+    Integer deletedRows = MainActivity.getDBManager.deleteData(id);
     if (deletedRows > 0) data deleted
     else data not deleted
      */
@@ -80,9 +80,15 @@ public class DBManager extends SQLiteOpenHelper{
         return true;
     }
 
-    // TODO to be invoked in application onStop
-    public void updateDatabase() {
-        // save new/modified data(s) to db
+    int getIDByContents(String front, String back, String rating, String deck) {
+        Cursor res = getAllData();
+        while (res.moveToNext()) {
+            if (res.getString(1).equals(front) && res.getString(2).equals(back)
+                    && res.getString(3).equals(rating) && res.getString(4).equals(deck)) {
+                return Integer.parseInt(res.getString(0));
+            }
+        }
+        return -1;
     }
 
 }
