@@ -16,10 +16,11 @@
  */
 package com.example.android.workingtitle;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FlashCard {
+public class FlashCard implements Serializable{
 
     public static final int EASY = 3;
     public static final int MEDIUM = 2;

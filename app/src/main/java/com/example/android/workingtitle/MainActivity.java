@@ -21,6 +21,7 @@ import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -29,7 +30,7 @@ import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static DBManager dbManager;
+    private static DBManager dbManager; // TODO replace with static dataHandler
     private Cursor dbContents;
     private List<Deck> decks;
     private List<FlashCard> flashCards;
@@ -44,20 +45,25 @@ public class MainActivity extends AppCompatActivity {
         flashCards = new ArrayList<>();
         initDecks();
         initFlashCards();
+        // TODO note remove instance dbmanager, replace with dataHandler
     }
 
     public void onDeleteDataClick(View view) {
         dbManager.removeAllData();
+        Toast.makeText(this, "Data deleted", Toast.LENGTH_SHORT).show();
     }
 
     private void initFlashCards() {
+        dbContents.moveToFirst();
         while (dbContents.moveToNext()) {
-            flashCards.add(new FlashCard(
+            FlashCard newCard = new FlashCard(
                     Integer.parseInt(dbContents.getString(0)),
                     dbContents.getString(1),
                     dbContents.getString(2),
                     Integer.parseInt(dbContents.getString(3)),
-                    findDeckByTitle(dbContents.getString(4))));
+                    Deck.findByTitle(dbContents.getString(4)));
+            flashCards.add(newCard);
+            newCard.getDeck().addNewCard(newCard);
         }
         FlashCard.setTotalFlashcards(flashCards);
     }
@@ -75,22 +81,6 @@ public class MainActivity extends AppCompatActivity {
             decks.add(new Deck(deckTitle));
         }
         Deck.setTotalDecks(decks);
-        configureDeckContents();
-    }
-
-    private void configureDeckContents() {
-        for (FlashCard f : flashCards) {
-            f.getDeck().addNewCard(f);
-        }
-    }
-
-    private Deck findDeckByTitle(String title) {
-        for (Deck deck : decks) {
-            if (deck.getTitle().equals(title)) {
-                return deck;
-            }
-        }
-        return null;
     }
 
     public static DBManager getDbManager() {

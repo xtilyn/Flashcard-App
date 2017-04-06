@@ -16,10 +16,11 @@
  */
 package com.example.android.workingtitle;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Deck {
+public class Deck implements Serializable{
 
     private static List<Deck> totalDecks = new ArrayList<>();
 
@@ -32,9 +33,13 @@ public class Deck {
     private ArrayList<FlashCard> unratedCards;
 
     Deck(String title) {
-        this.title = title.isEmpty() ? "Untitled" : title;
+        this.title = title;
         deckContents = new ArrayList<>();
         cardsByLevel = new ArrayList<>();
+    }
+
+    Deck() {
+        this("Untitled");
     }
 
     static void setTotalDecks(List<Deck> d) {
@@ -49,13 +54,13 @@ public class Deck {
         return new ArrayList<>(totalDecks);
     }
 
-    static Deck findDeckByTitle(String t) {
+    static Deck findByTitle(String t) {
         for (Deck d : totalDecks) {
             if (d.getTitle().equals(t)) {
                 return d;
             }
         }
-        return null;
+        return new Deck();
     }
 
     public String getTitle() {

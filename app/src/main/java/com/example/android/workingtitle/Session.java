@@ -16,6 +16,7 @@
  */
 package com.example.android.workingtitle;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -23,7 +24,7 @@ import java.util.Arrays;
  *
  * @author xtilyn
  */
-public class Session {
+public class Session implements Serializable{
 
     private final int timeLimitMinutes;
     private final Deck deck;

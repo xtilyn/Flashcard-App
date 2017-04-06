@@ -1,7 +1,10 @@
 package com.example.android.workingtitle;
 
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -25,10 +28,36 @@ public class FlashcardsActivity extends AppCompatActivity {
     }
 
     private void displayFlashcards() {
-        ArrayAdapter<String> adapter =
-                new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, flashCardsFront);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, flashCardsFront);
         ListView listView = (ListView) findViewById(R.id.listview_for_flashcards);
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(
+                new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        FlashCard card =
+                                findCardByFront(String.valueOf(parent.getItemAtPosition(position)));
+                        showCardDetails(card);
+                    }
+                }
+        );
+    }
+
+    private void showCardDetails(FlashCard card) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setMessage("Answer: " + card.getBack() + "\nRating: " +
+                card.getRating() + "\nDeck: " + card.getDeck().getTitle());
+        builder.show();
+    }
+
+    // TODO move to FlashCard class
+    private FlashCard findCardByFront(String f) {
+        for (FlashCard card : flashCardsInDeck) {
+            if (card.getFront().equals(f)) {
+                return card;
+            }
+        } return null;
     }
 
     // TODO create a hashmap in Deck class: String title = Deck deck

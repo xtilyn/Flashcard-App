@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Created on 2017-03-29.
  */
 
-public class DBManager extends SQLiteOpenHelper{
+class DBManager extends SQLiteOpenHelper{
 
     private static final String DATABASE_NAME = "flashcards.db";
     private static final String TABLE_NAME = "flashcards_table";

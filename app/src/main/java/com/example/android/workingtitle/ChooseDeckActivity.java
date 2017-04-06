@@ -105,6 +105,7 @@ public class ChooseDeckActivity extends AppCompatActivity {
                 front, back, -1, newDeck
         );
         Deck.addDeckToList(newDeck);
+        newDeck.addNewCard(newCard);
         FlashCard.addFlashcardToList(newCard);
         deckStringList.add(associatedDeck);
         adapter.notifyDataSetChanged();
@@ -117,18 +118,19 @@ public class ChooseDeckActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    // TODO duplicate
+    // TODO duplicate code
     private void onSpecificDeckSelected(String chosenDeck) {
         String front = getIntent().getExtras().getString("frontContent");
         String back = getIntent().getExtras().getString("backContent");
-        Deck deck = Deck.findDeckByTitle(chosenDeck);
+        Deck deck = Deck.findByTitle(chosenDeck);
         newCard = new FlashCard(
                 MainActivity.getDbManager().getIDByContents(front, back, String.valueOf(-1), associatedDeck),
                 front, back, -1, newDeck
         );
         FlashCard.addFlashcardToList(newCard);
-        if (deck != null)
-            deck.addNewCard(newCard);
+        deck.addNewCard(newCard);
+        MainActivity.getDbManager().insertData(front, back, -1, deck.getTitle());
+        goToDashBoard();
     }
 
     // TODO if the calling activity was chooseDeckActivity, make toast "new flashcard added"
