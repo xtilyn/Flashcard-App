@@ -4,7 +4,7 @@
     android:id="@+id/layout_for_create_deck"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.android.workingtitle.CreateDeckFragment">
+    tools:context="com.example.android.workingtitle.fragments.CreateDeckFragment">
 
     <EditText
         android:id="@+id/deck_title"

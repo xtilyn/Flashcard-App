@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.example.android.workingtitle;
+package com.example.android.workingtitle.activities;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -22,8 +22,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.example.android.workingtitle.R;
+import com.example.android.workingtitle.storage.*;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;

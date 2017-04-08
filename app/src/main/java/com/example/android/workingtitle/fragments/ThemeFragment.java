@@ -1,4 +1,4 @@
-package com.example.android.workingtitle;
+package com.example.android.workingtitle.fragments;
 
 
 import android.os.Bundle;

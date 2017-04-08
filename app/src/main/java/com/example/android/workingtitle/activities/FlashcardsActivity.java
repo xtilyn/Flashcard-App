@@ -1,4 +1,4 @@
-package com.example.android.workingtitle;
+package com.example.android.workingtitle.activities;
 
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.example.android.workingtitle.logic.FlashCard;
+import com.example.android.workingtitle.R;
 
 import java.util.ArrayList;
 import java.util.List;

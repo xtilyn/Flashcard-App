@@ -1,4 +1,4 @@
-package com.example.android.workingtitle;
+package com.example.android.workingtitle.activities;
 
 import android.content.res.Configuration;
 import android.os.Bundle;

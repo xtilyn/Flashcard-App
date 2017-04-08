@@ -1,4 +1,4 @@
-package com.example.android.workingtitle;
+package com.example.android.workingtitle.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +15,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
+
+import com.example.android.workingtitle.fragments.DeckFragment;
+import com.example.android.workingtitle.R;
+import com.example.android.workingtitle.fragments.StatsFragment;
+import com.example.android.workingtitle.fragments.ThemeFragment;
+import com.example.android.workingtitle.fragments.ToolsFragment;
 
 import java.util.ArrayList;
 

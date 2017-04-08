@@ -1,4 +1,4 @@
-package com.example.android.workingtitle;
+package com.example.android.workingtitle.activities;
 
 
 import android.annotation.TargetApi;
@@ -19,6 +19,8 @@ import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.text.TextUtils;
 import android.view.MenuItem;
+
+import com.example.android.workingtitle.R;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.android.workingtitle;
+package com.example.android.workingtitle.activities;
 
 import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
@@ -10,11 +10,16 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.example.android.workingtitle.fragments.CreateDeckFragment;
+import com.example.android.workingtitle.logic.Deck;
+import com.example.android.workingtitle.logic.FlashCard;
+import com.example.android.workingtitle.R;
+
 import java.util.ArrayList;
 
 public class ChooseDeckActivity extends AppCompatActivity {
 
-    private ArrayList<String> deckStringList;
+    private ArrayList<String> deckTitleList;
     ArrayAdapter adapter;
     private FlashCard newCard;
     private Deck newDeck;
@@ -23,15 +28,15 @@ public class ChooseDeckActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_deck);
-        deckStringList = new ArrayList<>();
+        deckTitleList = new ArrayList<>();
         displayAvailableDecks();
     }
 
     private void displayAvailableDecks() {
         for (int i = 0; i < MainActivity.getOfflineDataHandler().getDecks().size(); i++) {
-            deckStringList.add(MainActivity.getOfflineDataHandler().getDecks().get(i).getTitle());
+            deckTitleList.add(MainActivity.getOfflineDataHandler().getDecks().get(i).getTitle());
         }
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, deckStringList);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, deckTitleList);
         ListView listView = (ListView) findViewById(R.id.listview_for_decks);
         listView.setAdapter(adapter);
 //        listView.setOnItemClickListener(

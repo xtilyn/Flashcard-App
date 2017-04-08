@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DashboardActivity"
+            android:name=".activities.DashboardActivity"
             android:label="Dashboard"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -30,18 +30,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SettingsActivity"
+            android:name=".activities.SettingsActivity"
             android:label="@string/title_activity_settings" />
         <activity
-            android:name=".CreateFlashcardActivity"
+            android:name=".activities.CreateFlashcardActivity"
             android:label="Create Flashcard"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".AboutActivity" />
+        <activity android:name=".activities.AboutActivity" />
         <activity
-            android:name=".ChooseDeckActivity"
+            android:name=".activities.ChooseDeckActivity"
             android:label="Choose Deck" />
         <activity
-            android:name=".FlashcardsActivity"
+            android:name=".activities.FlashcardsActivity"
             android:theme="@style/AppTheme.NoActionBar"
             />
     </application>

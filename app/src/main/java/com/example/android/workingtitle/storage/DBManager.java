@@ -1,4 +1,4 @@
-package com.example.android.workingtitle;
+package com.example.android.workingtitle.storage;
 
 import android.content.ContentValues;
 import android.content.Context;

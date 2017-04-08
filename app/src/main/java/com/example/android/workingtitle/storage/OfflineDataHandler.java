@@ -1,7 +1,8 @@
-package com.example.android.workingtitle;
+package com.example.android.workingtitle.storage;
 
-import android.content.Context;
-import android.database.Cursor;
+import com.example.android.workingtitle.logic.Deck;
+import com.example.android.workingtitle.logic.FlashCard;
+import com.example.android.workingtitle.logic.Session;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,14 +29,14 @@ import io.realm.RealmResults;
  * 2017-04-03.
  */
 
-class OfflineDataHandler {
+public class OfflineDataHandler {
 
     private Realm myRealm;
     private List<Deck> decks;
     private List<FlashCard> flashCards;
     private List<Session> sessions;
 
-    OfflineDataHandler(Realm myRealm) {
+    public OfflineDataHandler(Realm myRealm) {
         this.myRealm = myRealm;
         decks = retrieveDecks();
         flashCards = retrieveCards();
