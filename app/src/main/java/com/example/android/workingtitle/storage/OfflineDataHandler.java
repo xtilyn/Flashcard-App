@@ -43,19 +43,19 @@ public class OfflineDataHandler {
         sessions = retrieveSessions();
     }
 
-    List<Deck> getDecks() {
+    public List<Deck> getDecks() {
         return new ArrayList<>(decks);
     }
 
-    List<FlashCard> getFlashCards() {
+    public List<FlashCard> getFlashCards() {
         return new ArrayList<>(flashCards);
     }
 
-    List<Session> getSessions() {
+    public List<Session> getSessions() {
         return new ArrayList<>(sessions);
     }
 
-    void saveFlashCard(final FlashCard flashCard) {
+    public void saveFlashCard(final FlashCard flashCard) {
         myRealm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
@@ -91,7 +91,7 @@ public class OfflineDataHandler {
         return sessions;
     }
 
-    void saveDeck(final Deck deck) {
+    public void saveDeck(final Deck deck) {
         myRealm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
@@ -100,7 +100,7 @@ public class OfflineDataHandler {
         });
     }
 
-    void saveSession(final Session session) {
+    public void saveSession(final Session session) {
         myRealm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
@@ -109,11 +109,11 @@ public class OfflineDataHandler {
         });
     }
 
-    void removeCard(final FlashCard flashCard) {
+    public void removeCard(final FlashCard flashCard) {
         // TODO
     }
 
-    void removeDeck(final Deck deck) {
+    public void removeDeck(final Deck deck) {
         // TODO remove deck and its associated contents
     }
 
