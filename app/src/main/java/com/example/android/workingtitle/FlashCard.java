@@ -16,11 +16,14 @@
  */
 package com.example.android.workingtitle;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FlashCard implements Serializable{
+import io.realm.Realm;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
+public class FlashCard extends RealmObject {
 
     public static final int EASY = 3;
     public static final int MEDIUM = 2;
@@ -31,17 +34,17 @@ public class FlashCard implements Serializable{
 
     private String front;
     private String back;
-    private int id;
     private Deck deck;
     private int rating;
 
-    FlashCard(int i, String f, String b, int r, Deck d) {
-        setID(i);
+    FlashCard(String f, String b, int r, Deck d) {
         setFront(f);
         setBack(b);
         setRating(r);
         setDeck(d);
     }
+
+    public FlashCard(){}
 
     static void setTotalFlashcards(List<FlashCard> f) {
         totalFlashcards = f;
@@ -65,10 +68,6 @@ public class FlashCard implements Serializable{
 
     void setBack(String b) {
         back = b;
-    }
-
-    void setID(int ID) {
-        id = ID;
     }
 
     void setRating(int rate) {
@@ -95,10 +94,6 @@ public class FlashCard implements Serializable{
         return deck;
     }
 
-    int getID() {
-        return id;
-    }
-
     boolean equals(FlashCard otherCard) {
         final String otherCardFront = otherCard.getFront();
         final String otherCardBack = otherCard.getBack();
@@ -106,9 +101,19 @@ public class FlashCard implements Serializable{
                 otherCardBack.equals(back);
     }
 
+//    public void addFlashCard(final FlashCard card) {
+//        mRealm.executeTransactionAsync(new Realm.Transaction() {
+//            @Override
+//            public void execute(Realm realm) {
+//                long id = this.id.incrementAndGet();
+//                card.setId(id);
+//                realm.copyToRealm(card);
+//            }
+//        })
+//    }
+
     @Override
     public String toString() {
         return front;
     }
-
 }

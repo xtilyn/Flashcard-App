@@ -23,7 +23,7 @@ public class FlashcardsActivity extends AppCompatActivity {
         flashCardsInDeck = new ArrayList<>();
         flashCardsFront = new ArrayList<>();
         String selectedDeck = getIntent().getExtras().getString("selectedDeck");
-        findDeckContents(selectedDeck);
+//        findDeckContents(selectedDeck);
         displayFlashcards();
     }
 
@@ -60,15 +60,15 @@ public class FlashcardsActivity extends AppCompatActivity {
         } return null;
     }
 
-    // TODO create a hashmap in Deck class: String title = Deck deck
-    private void findDeckContents(String selectedDeck) {
-        for (Deck d : Deck.getTotalDecks()) {
-            if (d.getTitle().equals(selectedDeck)) {
-                flashCardsInDeck = d.getDeckContents();
-            }
-        }
-        setFlashCardsFront();
-    }
+//    // TODO create a hashmap in Deck class: String title = Deck deck
+//    private void findDeckContents(String selectedDeck) {
+//        for (Deck d : Deck.getTotalDecks()) {
+//            if (d.getTitle().equals(selectedDeck)) {
+//                flashCardsInDeck = d.getDeckContents();
+//            }
+//        }
+//        setFlashCardsFront();
+//    }
 
     private void setFlashCardsFront() {
         for (FlashCard card : flashCardsInDeck) {

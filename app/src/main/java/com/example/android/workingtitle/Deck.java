@@ -20,25 +20,30 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Deck implements Serializable{
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
+public class Deck extends RealmObject {
 
     private static List<Deck> totalDecks = new ArrayList<>();
 
     private String title;
-    private ArrayList<FlashCard> deckContents;
-    private ArrayList<FlashCard> cardsByLevel;
-    private ArrayList<FlashCard> easyCards;
-    private ArrayList<FlashCard> mediumCards;
-    private ArrayList<FlashCard> hardCards;
-    private ArrayList<FlashCard> unratedCards;
+//    private ArrayList<FlashCard> deckContents;
+//    private ArrayList<FlashCard> cardsByLevel;
+//    private ArrayList<FlashCard> easyCards;
+//    private ArrayList<FlashCard> mediumCards;
+//    private ArrayList<FlashCard> hardCards;
+//    private ArrayList<FlashCard> unratedCards;
+    private long dateAdded; // TODO
 
     Deck(String title) {
         this.title = title;
-        deckContents = new ArrayList<>();
-        cardsByLevel = new ArrayList<>();
+//        this.dateAdded = dateAdded;
+//        deckContents = new ArrayList<>();
+//        cardsByLevel = new ArrayList<>();
     }
 
-    Deck() {
+    public Deck() {
         this("Untitled");
     }
 
@@ -60,7 +65,7 @@ public class Deck implements Serializable{
                 return d;
             }
         }
-        return new Deck();
+        return null;
     }
 
     public String getTitle() {
@@ -71,43 +76,43 @@ public class Deck implements Serializable{
         return totalDecks.size();
     }
 
-    void addNewCard(FlashCard card) {
-        deckContents.add(card);
-    }
+//    void addNewCard(FlashCard card) {
+//        deckContents.add(card);
+//    }
 
-    public void removeCard(FlashCard card) {
-        int index = -1;
-        for (int count = 0; count < deckContents.size(); count++) {
-            if (deckContents.get(count).equals(card)) {
-                index = count;
-            }
-        }
-        if (index != -1) {
-            deckContents.remove(index);
-            removeFromRatingList(card);
-        }
-    }
+//    public void removeCard(FlashCard card) {
+//        int index = -1;
+//        for (int count = 0; count < deckContents.size(); count++) {
+//            if (deckContents.get(count).equals(card)) {
+//                index = count;
+//            }
+//        }
+//        if (index != -1) {
+//            deckContents.remove(index);
+//            removeFromRatingList(card);
+//        }
+//    }
 
-    private void removeFromRatingList(FlashCard card) {
-        switch (card.getRating()) {
-            case FlashCard.EASY:
-                easyCards.remove(card);
-                break;
-            case FlashCard.MEDIUM:
-                mediumCards.remove(card);
-                break;
-            case FlashCard.HARD:
-                hardCards.remove(card);
-                break;
-            default:
-                unratedCards.remove(card);
-                break;
-        }
-    }
+//    private void removeFromRatingList(FlashCard card) {
+//        switch (card.getRating()) {
+//            case FlashCard.EASY:
+//                easyCards.remove(card);
+//                break;
+//            case FlashCard.MEDIUM:
+//                mediumCards.remove(card);
+//                break;
+//            case FlashCard.HARD:
+//                hardCards.remove(card);
+//                break;
+//            default:
+//                unratedCards.remove(card);
+//                break;
+//        }
+//    }
 
-    public ArrayList<FlashCard> getDeckContents() {
-        return this.deckContents;
-    }
+//    public ArrayList<FlashCard> getDeckContents() {
+//        return this.deckContents;
+//    }
 
 //    private void organizeDeckByLevel() {
 //        // hard cards at beginning of list
@@ -129,33 +134,33 @@ public class Deck implements Serializable{
         toRatingList.add(card);
     }
 
-    public void addToEasyCards(FlashCard card) {
-        easyCards.add(card);
-    }
-
-    public void addToMediumCards(FlashCard card) {
-        mediumCards.add(card);
-    }
-
-    public void addToHardCards(FlashCard card) {
-        hardCards.add(card);
-    }
-
-    public void addToUnratedCards(FlashCard card) {
-        unratedCards.add(card);
-    }
-
-    public ArrayList<FlashCard> getEasyCards() {
-        return easyCards;
-    }
-
-    public ArrayList<FlashCard> getMediumCards() {
-        return mediumCards;
-    }
-
-    public ArrayList<FlashCard> getHardCards() {
-        return hardCards;
-    }
+//    public void addToEasyCards(FlashCard card) {
+//        easyCards.add(card);
+//    }
+//
+//    public void addToMediumCards(FlashCard card) {
+//        mediumCards.add(card);
+//    }
+//
+//    public void addToHardCards(FlashCard card) {
+//        hardCards.add(card);
+//    }
+//
+//    public void addToUnratedCards(FlashCard card) {
+//        unratedCards.add(card);
+//    }
+//
+//    public ArrayList<FlashCard> getEasyCards() {
+//        return easyCards;
+//    }
+//
+//    public ArrayList<FlashCard> getMediumCards() {
+//        return mediumCards;
+//    }
+//
+//    public ArrayList<FlashCard> getHardCards() {
+//        return hardCards;
+//    }
 
 //    private boolean isInThisDeck(FlashCard card) {
 //        for (FlashCard c : this.deckContents) {

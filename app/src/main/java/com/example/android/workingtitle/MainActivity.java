@@ -21,71 +21,72 @@ import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static DBManager dbManager; // TODO replace with static dataHandler
     private Cursor dbContents;
-    private List<Deck> decks;
-    private List<FlashCard> flashCards;
+
+    private static OfflineDataHandler offlineDataHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Realm.init(this);
+        RealmConfiguration config = new RealmConfiguration.
+                Builder().
+                deleteRealmIfMigrationNeeded().
+                build();
+        Realm.setDefaultConfiguration(config);
         setContentView(R.layout.activity_main);
-        dbManager = new DBManager(this);
-        dbContents = dbManager.getAllData();
-        decks = new ArrayList<>();
-        flashCards = new ArrayList<>();
-        initDecks();
-        initFlashCards();
-        // TODO note remove instance dbmanager, replace with dataHandler
+        Realm myRealm = Realm.getInstance(config);
+        offlineDataHandler = new OfflineDataHandler(myRealm);
     }
 
-    public void onDeleteDataClick(View view) {
-        dbManager.removeAllData();
-        Toast.makeText(this, "Data deleted", Toast.LENGTH_SHORT).show();
+    public static OfflineDataHandler getOfflineDataHandler() {
+        return offlineDataHandler;
     }
 
-    private void initFlashCards() {
-        dbContents.moveToFirst();
-        while (dbContents.moveToNext()) {
-            FlashCard newCard = new FlashCard(
-                    Integer.parseInt(dbContents.getString(0)),
-                    dbContents.getString(1),
-                    dbContents.getString(2),
-                    Integer.parseInt(dbContents.getString(3)),
-                    Deck.findByTitle(dbContents.getString(4)));
-            flashCards.add(newCard);
-            newCard.getDeck().addNewCard(newCard);
-        }
-        FlashCard.setTotalFlashcards(flashCards);
-    }
 
-    private void initDecks() {
-        Set<String> hs = new HashSet<>();
-        List<String> temp2 = new ArrayList<>();
-        while (dbContents.moveToNext()) {
-            temp2.add(dbContents.getString(4));
-        }
-        hs.addAll(temp2);
-        temp2.clear();
-        temp2.addAll(hs);
-        for (String deckTitle : temp2) {
-            decks.add(new Deck(deckTitle));
-        }
-        Deck.setTotalDecks(decks);
-    }
+//    public void onDeleteDataClick(View view) {
+//        dbManager.removeAllData();
+//        Toast.makeText(this, "Data deleted", Toast.LENGTH_SHORT).show();
+//    }
 
-    public static DBManager getDbManager() {
-        return dbManager;
-    }
+//    private void initFlashCards() {
+//        dbContents.moveToFirst();
+//        while (dbContents.moveToNext()) {
+//            FlashCard newCard = new FlashCard(
+//                    Integer.parseInt(dbContents.getString(0)),
+//                    dbContents.getString(1),
+//                    dbContents.getString(2),
+//                    Integer.parseInt(dbContents.getString(3)),
+//                    Deck.findByTitle(dbContents.getString(4)));
+//            flashCards.add(newCard);
+//            newCard.getDeck().addNewCard(newCard);
+//        }
+//        FlashCard.setTotalFlashcards(flashCards);
+//    }
+
+//    private void initDecks() {
+//        Set<String> hs = new HashSet<>();
+//        List<String> temp2 = new ArrayList<>();
+//        while (dbContents.moveToNext()) {
+//            temp2.add(dbContents.getString(4));
+//        }
+//        hs.addAll(temp2);
+//        temp2.clear();
+//        temp2.addAll(hs);
+//        for (String deckTitle : temp2) {
+////            decks.add(new Deck(deckTitle));
+//        }
+//        Deck.setTotalDecks(decks);
+//    }
 
     public void onDashBoardButtonClicked(View view) {
         Intent intent = new Intent(this, DashboardActivity.class);

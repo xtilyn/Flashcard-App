@@ -20,25 +20,29 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import io.realm.RealmObject;
+
 /**
  *
  * @author xtilyn
  */
-public class Session implements Serializable{
+public class Session extends RealmObject{
 
-    private final int timeLimitMinutes;
-    private final Deck deck;
-    private final ArrayList<FlashCard> cardsInSession;
+    private int timeLimitMinutes;
+    private Deck deck;
+//    private final ArrayList<FlashCard> cardsInSession;
 
     private double sessionScore;
-    private ArrayList<FlashCard> queue;
+//    private ArrayList<FlashCard> queue;
 
     Session(int time, Deck d) {
         timeLimitMinutes = time;
         deck = d;
-        queue = new ArrayList<>();
-        cardsInSession = new ArrayList<>(deck.getDeckContents());
+//        queue = new ArrayList<>();
+//        cardsInSession = new ArrayList<>(deck.getDeckContents());
     }
+
+    public Session() {}
 
     public void setScore(double s) {
         sessionScore = s;
